@@ -10,7 +10,8 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: "Counter App",
+      title: "Project",
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
   }
@@ -27,24 +28,31 @@ class MyHomePage extends StatefulWidget{
 
 class MyHomePageUI extends State<MyHomePage>{
 
-  int CountNumber = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Counter App"),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          Icon(Icons.search, color: Colors.black,),
+        ],
       ),
-      body: Center(
-        child: Text(CountNumber.toString(), style: TextStyle(fontSize: 30),),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: (){
-          setState(() {
-            CountNumber = CountNumber + 1;
-          });
-        },
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(
+              "My Bag",
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            ),
+            Row(
+              children: [
+
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
