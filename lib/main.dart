@@ -1,57 +1,71 @@
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(MyApp());
+void main() {
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: "Project",
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+    return MaterialApp(
+      title: 'Live test',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget{
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return MyHomePageUI();
-  }
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class MyHomePageUI extends State<MyHomePage>{
+class _MyHomePageState extends State<MyHomePage> {
+  List<String> buttonList = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+  String selectedButton = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          Icon(Icons.search, color: Colors.black,),
-        ],
+        title: const Text('Size Selector'),
+        centerTitle: true,
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Text(
-              "My Bag",
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: [
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Wrap(
+            spacing: 8.0, // Add space between buttons
+            runSpacing: 8.0,
+            children: buttonList.map((buttonName) {
+              bool isSelected = buttonName == selectedButton;
 
-              ],
-            )
-          ],
+              return ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  backgroundColor: isSelected ? Colors.orange : Colors.grey,
+                ),
+                onPressed: () {
+                  setState(() {
+                    selectedButton = buttonName;
+                  });
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Selected text size: $buttonName'),
+                    ),
+                  );
+                },
+                child: Text(buttonName),
+              );
+            }).toList(),
+          ),
         ),
       ),
     );
